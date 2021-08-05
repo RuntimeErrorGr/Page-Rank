@@ -1,0 +1,56 @@
+Lăbău Cristea Andrei Liviu 314CB
+
+Task 1: Iterative
+	In implementarea algoritmului Iterative am folosit o functie auxiliara 
+pentru a calcula matricea de adiacenta a grafului in care am considerat paginile
+descrise in enunt ca fiind noduri ale grafului si legaturile intre pagini ca 
+fiind arce in graf.
+	Aceasta matrice de adiacenta este creata linie cu linie. In cadrul
+a 2 bucle for imbricate este citita si parcursa lista (vectorul) de adiacenta a
+nodului curent. Incepand de la pozitia 3 din lista verific ce noduri sunt legate 
+de nodul curent si modific valoarea corespunzatoare din matrice in 1 (initial 
+toate pozitiile din matricea de adiacenta sunt initializate cu 0). Se poate 
+intalni cazul in care un nod are legatura cu el insusi, dar conform enuntului,
+aceste legaturi trebuie ignorate. Daca se intalneste aceasta situatie, valoarea
+de pe diagonala principala este modificata la loc in 0.
+	Dupa ce matricea de adiacenta a fost obtinuta, creez matricea M a carei 
+elemente sunt reprezentate de valorile din matricea de adiacenta impartite la 
+numarul total de legaturi pe care il are nodul corespunzator liniei curente din
+matrice, din care se scade numarul de legaturi la el insusi.
+Dupa efectuarea impartirilor, matricea M este actualizata cu transpusa sa.
+Am procedat astfel pentru a evita calculul inversei matricei cu o matrice 
+auxiliara diagonala K.
+	Pentru a determina valorile vectorului R am folosit o bucla while in cadrul 
+careia se calculeaza R la pasul curent t, se verifica daca norm(R(t) - R(t-1))
+(unde R(t -1) reprezinta vectorul R la pasul anterior, iar R(t) reprezinta
+vectorul R la pasul curent) este mai mic decat eroarea acceptata eps. Daca da, 
+se iese din program si se returneaza R(t-1). Daca nu, se actualizeaza R(t-1) 
+si se efectueaza o noua iteratie.
+
+Task 2: Algebraic
+	Implementarea acestui algoritm este similara in pasii incipienti cu cea 
+a algoritmului Iterative in sensul ca se procedeaza la fel pentru obtinerea 
+matricei M. 
+	Si la acest algoritm am incercat sa evit calcularea explicita a inversei 
+matricei I - d * M, asa ca am folosit algoritmul Gram-Schmidt modificat pentru
+a calcula matricea ortogonala Q si matricea superior triunghiulata U. Astfel, am
+aplicat algoritmul Gram-Schmidt o singura data, I - d * M = Q * U. Pe baza 
+matricilor Q si U am rezolvat cate un sistem de ecuatii superior triunghiulat 
+pentru fiecare nod din graf si am salvat solutiile in coloanele unei matrice X.
+Matricea X a fost folosita ulterior pentru a calcula vectorul R pe baza formulei
+furnizate in enunt.
+
+Task 3: PageRank
+	Pentru a crea topul paginilor din multimea paginilor importante am apelat 
+cei 2 algoritmi implementati anterior si am obtinut vectorii PR corespunzatori
+pe care i-am si afisat in fisierul de output. Vectorul obtinut in urma 
+algoritmului Algebraic a fost ordonat descrescator si pentru fiecare element al
+sau a fost apelata functia Apartenenta care stabileste gradul de apartenenta al
+paginii. Valoarea functiei pentru o valoare a lui x situata intre valorile val1
+si val2 a fost calculata astfel incat functia sa fie continua pe intreg domeniul
+ei de definitie (limita la stanga val1 = limita la dreapta val1 = valoarea in
+val1 si limita la stanga val2 = limita la dreapta val2 = valoarea in val2).
+	Afisarea a fost efectuata pe orizontala, afisand mai intai nr. de ordine al
+nodului (paginii), apoi pozitia ei in vectorul PR inainte de sortare si in final
+valoarea functiei de apartenenta pentru nodul respectiv.
+
